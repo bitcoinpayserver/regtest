@@ -1,0 +1,37 @@
+name: BitcoinPayServer RegTest
+
+services:
+  bitcoin:
+    image: bitcoinpayserver/bitcoin:29.x-knots
+    container_name: bitcoin
+    build:
+      context: .
+      dockerfile: docker/bitcoin.Dockerfile
+    ports:
+      - "18443:18443"
+      - "18444:18444"
+    volumes:
+      - bitcoin:/data
+    restart: on-failure
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: bitcoinpay
+      POSTGRES_PASSWORD: bitcoinpaypass
+    ports:
+      - "5433:5434"
+    volumes:
+      - postgres:/var/lib/postgres/data
+
+networks:
+  default:
+    name: bitcoin-network
+
+volumes:
+  bitcoin:
+    name: bitcoin-data
+  postgres:
+    name: postgres-db
