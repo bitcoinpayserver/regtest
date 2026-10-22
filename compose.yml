@@ -22,7 +22,7 @@ services:
       POSTGRES_USER: bitcoinpay
       POSTGRES_PASSWORD: bitcoinpaypass
     ports:
-      - "5433:5434"
+      - "5433:5432"
     volumes:
       - postgres:/var/lib/postgres/data
 
