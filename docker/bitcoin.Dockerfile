@@ -1,5 +1,5 @@
 # ==========================================
-# STAGE 1: Build the Bitcoin Knots binary
+# Build the Bitcoin Knots binary
 # ==========================================
 FROM ubuntu:24.04 AS builder
 
@@ -61,7 +61,7 @@ RUN useradd -m -u 1100 bitcoin && \
     chown -R bitcoin:bitcoin /home/bitcoin
 
 # Copy the Bitcoin regtest configuration
-COPY ./docker/bitcoin.conf /home/bitcoin/.bitcoin/bitcoin.conf
+COPY ./bitcoin.conf /home/bitcoin/.bitcoin/bitcoin.conf
 
 USER bitcoin
 WORKDIR /home/bitcoin

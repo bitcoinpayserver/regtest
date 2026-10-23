@@ -5,14 +5,29 @@ services:
     image: bitcoinpayserver/bitcoin:29.x-knots
     container_name: bitcoin
     build:
-      context: .
-      dockerfile: docker/bitcoin.Dockerfile
+      context: ./docker
+      dockerfile: bitcoin.Dockerfile
     ports:
       - "18443:18443"
       - "18444:18444"
     volumes:
       - bitcoin:/data
     restart: on-failure
+
+  xplorerbt:
+    image: bitcoinpayserver/xplorerbt:main
+    container_name: xplorerbt
+    build:
+      context: ./docker
+      dockerfile: xplorerbt.Dockerfile
+      args:
+        - CACHE_BUST=${CACHE_BUST:-1}
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   postgres:
     image: postgres
@@ -21,10 +36,16 @@ services:
     environment:
       POSTGRES_USER: bitcoinpay
       POSTGRES_PASSWORD: bitcoinpaypass
+      POSTGRES_DB: postgres
     ports:
-      - "5433:5434"
+      - "5433:5432"
     volumes:
       - postgres:/var/lib/postgres/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bitcoinpay -d postgres"]
+      interval: 3s
+      timeout: 3s
+      retries: 7
 
 networks:
   default:
