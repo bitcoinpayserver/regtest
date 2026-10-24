@@ -16,7 +16,8 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 WORKDIR /usr/src
 
 ARG CACHE_BUST=1
-RUN git clone --branch main https://github.com/bitcoinpayserver/xplorerbt
+
+RUN CACHE_ID=$CACHE_BUST git clone --branch main https://github.com/bitcoinpayserver/xplorerbt
 
 WORKDIR /usr/src/xplorerbt
 RUN cargo build
