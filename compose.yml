@@ -17,6 +17,10 @@ services:
   xplorerbt:
     image: bitcoinpayserver/xplorerbt:main
     container_name: xplorerbt
+    environment:
+      DB_HOST: postgres
+      DB_USER: bitcoinpay
+      DB_PASSWORD: bitcoinpaypass
     build:
       context: ./docker
       dockerfile: xplorerbt.Dockerfile
@@ -49,7 +53,7 @@ services:
 
 networks:
   default:
-    name: bitcoin-network
+    name: bitcosin-network
 
 volumes:
   bitcoin:
