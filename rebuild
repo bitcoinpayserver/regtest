@@ -2,4 +2,4 @@
 
 printf "\n━━━━━━━━━━━━━ Rebuilding Docker Images ━━━━━━━━━━━━━\n\n"
 
-CACHE_BUST=$(date +%s) sudo docker compose build
+sudo env CACHE_BUST=$(date +%s) docker compose build
