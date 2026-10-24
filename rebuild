@@ -1,0 +1,5 @@
+#!/bin/bash
+
+printf "\n━━━━━━━━━━━━━ Rebuilding Docker Images ━━━━━━━━━━━━━\n\n"
+
+CACHE_BUST=$(date +%s) sudo docker compose build
