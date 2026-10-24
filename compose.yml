@@ -55,7 +55,7 @@ services:
 
 networks:
   default:
-    name: bitcosin-network
+    name: bitcoin-network
 
 volumes:
   bitcoin:
