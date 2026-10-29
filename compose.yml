@@ -16,6 +16,8 @@ services:
 
   xplorerbt:
     image: bitcoinpayserver/xplorerbt:main
+    profiles:
+      - "xplorer"
     container_name: xplorerbt
     environment:
       ZMQ_TX_URL: tcp://bitcoin:28332
@@ -30,6 +32,34 @@ services:
         - CACHE_BUST=${CACHE_BUST:-1}
     ports:
       - "8000:8000"
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  bitcoinpayd:
+    image: bitcoinpayserver/bitcoinpayd:main
+    profiles:
+      - "payserver"
+    container_name: bitcoinpayd
+    environment:
+      HOST: bitcoinpayd
+      PORT: 50051
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: bitcoinpay
+      DB_NAME: postgres
+      DB_PASSWORD: bitcoinpaypass
+      ICONS_DIR: static
+      MIN_CONFIRMATIONS: 6
+      XPLORERBT: http://xplorerbt:8000
+    build:
+      context: ./docker
+      dockerfile: bitcoinpayd.Dockerfile
+      args:
+        - CACHE_BUST=${CACHE_BUST:-1}
+    ports:
+      - "50051:50051"
     restart: unless-stopped
     depends_on:
       postgres:
