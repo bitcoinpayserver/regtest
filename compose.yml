@@ -16,6 +16,8 @@ services:
 
   xplorerbt:
     image: bitcoinpayserver/xplorerbt:main
+    profiles:
+      - "xplorer"
     container_name: xplorerbt
     environment:
       ZMQ_TX_URL: tcp://bitcoin:28332
@@ -37,6 +39,8 @@ services:
 
   bitcoinpayd:
     image: bitcoinpayserver/bitcoinpayd:main
+    profiles:
+      - "payserver"
     container_name: bitcoinpayd
     environment:
       HOST: bitcoinpayd
