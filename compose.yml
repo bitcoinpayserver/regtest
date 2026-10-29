@@ -35,6 +35,32 @@ services:
       postgres:
         condition: service_healthy
 
+  bitcoinpayd:
+    image: bitcoinpayserver/bitcoinpayd:main
+    container_name: bitcoinpayd
+    environment:
+      HOST: bitcoinpayd
+      PORT: 50051
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: bitcoinpay
+      DB_NAME: postgres
+      DB_PASSWORD: bitcoinpaypass
+      ICONS_DIR: static
+      MIN_CONFIRMATIONS: 6
+      XPLORERBT: http://xplorerbt:8000
+    build:
+      context: ./docker
+      dockerfile: bitcoinpayd.Dockerfile
+      args:
+        - CACHE_BUST=${CACHE_BUST:-1}
+    ports:
+      - "50051:50051"
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   postgres:
     image: postgres
     container_name: postgres
