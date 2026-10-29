@@ -1,5 +1,5 @@
 #!/bin/bash
 
-sudo docker compose down
+sudo docker compose --profile "*" down
 
 printf "\n\033[0;32m✓\033[0m RegTest Environment Cleaned\n\n"
