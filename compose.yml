@@ -3,6 +3,7 @@ name: BitcoinPayServer RegTest
 services:
   bitcoin:
     image: bitcoinpayserver/bitcoin:29.x-knots
+    pull_policy: build
     container_name: bitcoin
     build:
       context: ./docker
@@ -16,6 +17,7 @@ services:
 
   xplorerbt:
     image: bitcoinpayserver/xplorerbt:main
+    pull_policy: build
     profiles:
       - "xplorer"
     container_name: xplorerbt
@@ -39,6 +41,7 @@ services:
 
   bitcoinpayd:
     image: bitcoinpayserver/bitcoinpayd:main
+    pull_policy: build
     profiles:
       - "payserver"
     container_name: bitcoinpayd
