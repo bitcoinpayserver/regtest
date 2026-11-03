@@ -2,11 +2,11 @@
 
 printf "\n━━━━━━━━━━━━━ Starting RegTest Environment ━━━━━━━━━━━━━\n\n"
 
-profiles=""
+profiles=()
+set -f
 for arg in "$@"; do
-  profiles="$profiles --profile $arg"
+  profiles+=("--profile" "$arg")
 done
+set +f
 
-echo $profiles
-
-sudo docker compose $profiles up -d
+sudo docker compose "${profiles[@]}" up -d
