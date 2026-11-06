@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y \
     libboost-filesystem-dev \
     libboost-test-dev \
     libsqlite3-dev \
+    lizmq3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src
@@ -50,6 +51,7 @@ RUN apt-get update && apt-get install -y \
     libboost-system1.83.0 \
     libboost-filesystem1.83.0 \
     libsqlite3-0 \
+    libzmq5 \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the compiled binaries from Stage 1
