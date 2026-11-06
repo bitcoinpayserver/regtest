@@ -34,6 +34,7 @@ RUN cmake -B build \
         -DBUILD_TESTS=OFF \
         -DBUILD_BENCH=OFF \
         -DBUILD_GUI=OFF \
+        -DWITH_ZMQ=ON \
         -DWITH_SQLITE=ON && \
     cmake --build build -j$(nproc) && \
     cmake --install build
