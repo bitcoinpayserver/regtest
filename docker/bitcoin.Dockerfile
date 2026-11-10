@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y \
     libboost-filesystem-dev \
     libboost-test-dev \
     libsqlite3-dev \
+    libzmq3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src
@@ -34,6 +35,7 @@ RUN cmake -B build \
         -DBUILD_TESTS=OFF \
         -DBUILD_BENCH=OFF \
         -DBUILD_GUI=OFF \
+        -DWITH_ZMQ=ON \
         -DWITH_SQLITE=ON && \
     cmake --build build -j$(nproc) && \
     cmake --install build
@@ -49,6 +51,7 @@ RUN apt-get update && apt-get install -y \
     libboost-system1.83.0 \
     libboost-filesystem1.83.0 \
     libsqlite3-0 \
+    libzmq5 \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the compiled binaries from Stage 1
