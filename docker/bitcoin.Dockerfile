@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y \
     libboost-filesystem-dev \
     libboost-test-dev \
     libsqlite3-dev \
-    lizmq3-dev \
+    libzmq3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src
